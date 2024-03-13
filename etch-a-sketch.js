@@ -34,10 +34,14 @@ function createGrid(pixelsPerRow) {
             pixel.style.margin = "0px";
             pixel.style.backgroundColor = "white";
             pixel.addEventListener('mouseover', () => {
-                pixel.style.backgroundColor = "black";
-            })
-            pixel.addEventListener('touchmove', () => {
-                pixel.style.backgroundColor = "black";
+                if (document.querySelector('#randomColors').checked === true) {
+                    let red = Math.floor(Math.random() * 256);
+                    let green = Math.floor(Math.random() * 256);
+                    let blue = Math.floor(Math.random() * 256);
+                    pixel.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+                } else {
+                    pixel.style.backgroundColor = "black";
+                }
             })
             col.appendChild(pixel);
         }
@@ -59,7 +63,12 @@ reset.addEventListener('click', () => {
 const changeResolution = document.querySelector('#change');
 changeResolution.addEventListener('click', () => {
     do {
-        pixelsPerRow = parseInt(prompt("Enter number of pixels per row/column.\nValue must be between 1 and 100."));
+        previousPixelsPerRow = pixelsPerRow;
+        pixelsPerRow = parseInt(prompt("How many squares per side would you like?\nValue must be between 1 and 100."));
+        console.log(pixelsPerRow);
+        if (!pixelsPerRow) {
+            pixelsPerRow = previousPixelsPerRow;
+        }
     } while (pixelsPerRow < 1 || pixelsPerRow > 100)
     
     createGrid(pixelsPerRow);

@@ -24,7 +24,8 @@ body {
     justify-content: space-between;
 }
 
-button {
+button,
+.form-check {
     margin-left: 12px;
     margin-right: 12px;
 }
